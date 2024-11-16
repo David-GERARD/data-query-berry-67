@@ -19,8 +19,11 @@ const QueryInput = ({ onSubmit }: QueryInputProps) => {
     try {
       const response = await fetch('https://ef-hackathon.onrender.com/query', {
         method: 'POST',
+        mode: 'cors',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json',
         },
         body: JSON.stringify({ query: query.trim() }),
       });

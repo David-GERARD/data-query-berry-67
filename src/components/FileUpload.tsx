@@ -26,6 +26,11 @@ const FileUpload = () => {
       const response = await fetch("https://ef-hackathon.onrender.com/upload", {
         method: "POST",
         body: formData,
+        mode: 'cors',
+        credentials: 'include',
+        headers: {
+          'Accept': 'application/json',
+        }
       });
 
       if (!response.ok) throw new Error("Upload failed");
