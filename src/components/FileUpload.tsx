@@ -23,7 +23,7 @@ const FileUpload = () => {
     });
 
     try {
-      const response = await fetch("http://localhost:8000/upload", {
+      const response = await fetch("https://ef-hackathon.onrender.com/upload", {
         method: "POST",
         body: formData,
       });
