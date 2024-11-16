@@ -1,56 +1,62 @@
 import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Label } from "@/components/ui/label";
+import { useToast } from "@/components/ui/use-toast";
 
 interface QueryInputProps {
-  onSubmit: (query: string, type: 'visualization' | 'statistical') => void;
+  onSubmit: (query: string) => void;
 }
 
 const QueryInput = ({ onSubmit }: QueryInputProps) => {
   const [query, setQuery] = useState('');
-  const [queryType, setQueryType] = useState<'visualization' | 'statistical'>('visualization');
+  const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast();
 
-  const handleSubmit = () => {
-    if (query.trim()) {
-      onSubmit(query, queryType);
+  const handleSubmit = async () => {
+    if (!query.trim()) return;
+    
+    setIsLoading(true);
+    try {
+      const response = await fetch('http://localhost:8000/query', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ query: query.trim() }),
+      });
+
+      if (!response.ok) throw new Error('Query failed');
+
+      const data = await response.json();
+      onSubmit(data);
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Failed to process query. Please try again.",
+      });
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
     <div className="space-y-4 p-6 bg-white rounded-lg shadow-sm">
       <div className="space-y-2">
-        <Label htmlFor="query">Enter your query in natural language</Label>
         <Textarea
-          id="query"
-          placeholder="e.g., Show me the correlation between treatment A and outcome B"
+          placeholder="Ask a question about your EHR data..."
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           className="min-h-[100px] resize-none"
         />
       </div>
-      
-      <RadioGroup
-        value={queryType}
-        onValueChange={(value) => setQueryType(value as 'visualization' | 'statistical')}
-        className="flex space-x-4"
-      >
-        <div className="flex items-center space-x-2">
-          <RadioGroupItem value="visualization" id="visualization" />
-          <Label htmlFor="visualization">Visualization</Label>
-        </div>
-        <div className="flex items-center space-x-2">
-          <RadioGroupItem value="statistical" id="statistical" />
-          <Label htmlFor="statistical">Statistical Analysis</Label>
-        </div>
-      </RadioGroup>
 
       <Button 
         onClick={handleSubmit}
-        className="w-full bg-medical-blue hover:bg-medical-blue/90 text-white"
+        disabled={isLoading}
+        className="w-full"
       >
-        Analyze Data
+        {isLoading ? "Processing..." : "Ask Question"}
       </Button>
     </div>
   );
