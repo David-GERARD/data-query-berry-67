@@ -18,9 +18,8 @@ const FileUpload = () => {
     setFilesCount(files.length);
     
     const formData = new FormData();
-    Array.from(files).forEach((file) => {
-      formData.append("files", file);
-    });
+    // Changed from 'files' to 'file' to match backend expectation
+    formData.append("file", files[0]);
 
     try {
       const response = await fetch("https://ef-hackathon.onrender.com/upload", {
@@ -37,13 +36,13 @@ const FileUpload = () => {
 
       toast({
         title: "Success!",
-        description: `Successfully uploaded ${files.length} files`,
+        description: `Successfully uploaded file`,
       });
     } catch (error) {
       toast({
         variant: "destructive",
         title: "Error",
-        description: "Failed to upload files. Please try again.",
+        description: "Failed to upload file. Please try again.",
       });
     } finally {
       setUploading(false);
@@ -55,13 +54,12 @@ const FileUpload = () => {
     <div className="space-y-4 w-full max-w-md">
       <div className="flex flex-col items-center p-6 border-2 border-dashed rounded-lg">
         <Upload className="h-10 w-10 text-gray-400 mb-2" />
-        <p className="text-sm text-gray-600 mb-4">Upload your EHR files (PDF format)</p>
+        <p className="text-sm text-gray-600 mb-4">Upload your EHR file (PDF format)</p>
         <Button asChild variant="secondary">
           <label className="cursor-pointer">
-            Choose Files
+            Choose File
             <input
               type="file"
-              multiple
               accept=".pdf"
               className="hidden"
               onChange={handleFileUpload}
@@ -75,7 +73,7 @@ const FileUpload = () => {
         <div className="space-y-2">
           <Progress value={progress} className="w-full" />
           <p className="text-sm text-gray-600 text-center">
-            Uploading {filesCount} files...
+            Uploading file...
           </p>
         </div>
       )}
