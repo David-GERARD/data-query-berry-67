@@ -39,7 +39,6 @@ const FileUpload = () => {
         variant: "destructive",
         title: "Error",
         description: "Failed to upload files. Please try again.",
-        icon: <FileWarning className="h-5 w-5" />,
       });
     } finally {
       setUploading(false);

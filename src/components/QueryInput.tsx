@@ -4,7 +4,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 
 interface QueryInputProps {
-  onSubmit: (query: string) => void;
+  onSubmit: (data: { text?: string; visualization?: any }) => void;
 }
 
 const QueryInput = ({ onSubmit }: QueryInputProps) => {
