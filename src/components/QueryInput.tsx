@@ -11,11 +11,6 @@ interface QueryInputProps {
   onSubmit: (data: { text?: string; image?: boolean }) => void;
 }
 
-interface ApiResponse {
-  input: string;
-  output: string;
-}
-
 const QueryInput = ({ onSubmit }: QueryInputProps) => {
   const [query, setQuery] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -36,17 +31,18 @@ const QueryInput = ({ onSubmit }: QueryInputProps) => {
 
       if (!response.ok) throw new Error(`Error: ${response.status}`);
 
-      const apiResponse: ApiResponse = await response.json();
-      const outputData = JSON.parse(apiResponse.output);
+      const data = await response.json();
+      console.log('Received data:', data); // Debug log
       
-      // Ensure we're passing an object with the correct structure
+      // Pass the response directly to the parent component
       onSubmit({
-        text: outputData.text,
-        image: outputData.image
+        text: data.output || 'Response received from server',
+        image: false
       });
 
       setQuery(''); // Clear the input after successful submission
     } catch (error) {
+      console.error('Error:', error); // Debug log
       toast({
         variant: "destructive",
         title: "Error",
