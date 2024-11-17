@@ -37,9 +37,15 @@ const QueryInput = ({ onSubmit }: QueryInputProps) => {
       if (!response.ok) throw new Error(`Error: ${response.status}`);
 
       const apiResponse: ApiResponse = await response.json();
-      // Parse the output string which contains the JSON response
       const outputData = JSON.parse(apiResponse.output);
-      onSubmit(outputData);
+      
+      // Ensure we're passing an object with the correct structure
+      onSubmit({
+        text: outputData.text,
+        image: outputData.image
+      });
+
+      setQuery(''); // Clear the input after successful submission
     } catch (error) {
       toast({
         variant: "destructive",
