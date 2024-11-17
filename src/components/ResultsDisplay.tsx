@@ -15,6 +15,7 @@ const ResultsDisplay = ({ text, image }: ResultsDisplayProps) => {
   return (
     <Card className="p-6 animate-fade-in">
       <div className="prose max-w-none">
+        <p className="text-gray-700 mb-2">Data received</p>
         {text && <p className="text-gray-700 whitespace-pre-wrap">{text}</p>}
         {image && <p className="text-gray-500">Image visualization available</p>}
       </div>
