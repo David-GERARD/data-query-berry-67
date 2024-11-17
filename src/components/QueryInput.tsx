@@ -30,7 +30,7 @@ const QueryInput = ({ onSubmit }: QueryInputProps) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ user_query: query.trim() })
+        body: JSON.stringify(query.trim())
       });
 
       if (!response.ok) throw new Error('Query failed');
