@@ -3,14 +3,15 @@
  * Handles different types of result data with appropriate formatting.
  */
 import { Card } from "@/components/ui/card";
+import plotImage from "../data/plot.png";
 
 interface ResultsDisplayProps {
   text?: string;
-  visualization?: any;
+  image?: boolean;
 }
 
-const ResultsDisplay = ({ text, visualization }: ResultsDisplayProps) => {
-  if (!text && !visualization) return null;
+const ResultsDisplay = ({ text, image }: ResultsDisplayProps) => {
+  if (!text && !image) return null;
 
   return (
     <Card className="p-6 animate-fade-in">
@@ -20,10 +21,10 @@ const ResultsDisplay = ({ text, visualization }: ResultsDisplayProps) => {
         </div>
       )}
       
-      {visualization && (
+      {image && (
         <div className="mt-4">
           <img 
-            src={`data:image/png;base64,${visualization}`} 
+            src={plotImage}
             alt="Data visualization"
             className="max-w-full h-auto"
           />

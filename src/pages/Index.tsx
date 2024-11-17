@@ -10,16 +10,12 @@ import { Card } from "@/components/ui/card";
 
 interface QueryResult {
   text?: string;
-  visualization?: any;
+  image?: boolean;
 }
 
 const Index = () => {
   const [result, setResult] = useState<QueryResult | null>(null);
 
-  /**
-   * Handles the results from a query submission.
-   * @param data - The query result data containing text and/or visualization
-   */
   const handleQueryResult = (data: QueryResult) => {
     setResult(data);
   };
@@ -39,7 +35,7 @@ const Index = () => {
             {result ? (
               <ResultsDisplay
                 text={result.text}
-                visualization={result.visualization}
+                image={result.image}
               />
             ) : (
               <p className="text-gray-500 text-center py-8">

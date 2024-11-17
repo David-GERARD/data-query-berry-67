@@ -8,7 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 
 interface QueryInputProps {
-  onSubmit: (data: { text?: string; visualization?: any }) => void;
+  onSubmit: (data: { text?: string; image?: boolean }) => void;
 }
 
 const QueryInput = ({ onSubmit }: QueryInputProps) => {
@@ -16,28 +16,23 @@ const QueryInput = ({ onSubmit }: QueryInputProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
 
-  /**
- * Handles the submission of a query to the backend API.
- * Processes the response and updates the UI accordingly.
- */
-const handleSubmit = async () => {
-  if (!query.trim()) return;
+  const handleSubmit = async () => {
+    if (!query.trim()) return;
 
-  setIsLoading(true);
-  try {
-    const response = await fetch('http://127.0.0.1:8000/query', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'text/plain',
-      },
-      //body: JSON.stringify({ user_query: query.trim() }) // Match API payload
-      body: query.trim() // Match API payload
-    });
+    setIsLoading(true);
+    try {
+      const response = await fetch('http://127.0.0.1:8000/query', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'text/plain',
+        },
+        body: query.trim()
+      });
 
-    if (!response.ok) throw new Error(`Error: ${response.status}`);
+      if (!response.ok) throw new Error(`Error: ${response.status}`);
 
-      const data = await response.json();
-      onSubmit(data);
+      const responseData = await response.json();
+      onSubmit(responseData.data);
     } catch (error) {
       toast({
         variant: "destructive",
