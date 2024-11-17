@@ -1,20 +1,22 @@
 /**
- * Component for handling file uploads to the server.
- * Supports PDF file uploads with progress tracking and status notifications.
+ * Component for handling user input queries and submitting them to the backend.
+ * Provides feedback through toast notifications for success and error states.
  */
-import { useState } from "react";
+import { useState } from 'react';
 import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
-import { Progress } from "@/components/ui/progress";
-import { Upload } from "lucide-react";
 
-const FileUpload = () => {
-  const [uploading, setUploading] = useState(false);
-  const [progress, setProgress] = useState(0);
-  const [filesCount, setFilesCount] = useState(0);
+interface QueryInputProps {
+  onSubmit: (data: { text?: string; visualization?: any }) => void;
+}
+
+const QueryInput = ({ onSubmit }: QueryInputProps) => {
+  const [query, setQuery] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
 
- /**
+  /**
    * Handles the submission of a query to the backend API.
    * Processes the response and updates the UI accordingly.
    */
@@ -28,7 +30,7 @@ const FileUpload = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(query.trim())
+        body: JSON.stringify({ user_query: query.trim() })
       });
 
       if (!response.ok) throw new Error('Query failed');
@@ -45,36 +47,27 @@ const FileUpload = () => {
       setIsLoading(false);
     }
   };
-  
+
   return (
-    <div className="space-y-4 w-full max-w-md">
-      <div className="flex flex-col items-center p-6 border-2 border-dashed rounded-lg">
-        <Upload className="h-10 w-10 text-gray-400 mb-2" />
-        <p className="text-sm text-gray-600 mb-4">Upload your EHR file (PDF format)</p>
-        <Button asChild variant="secondary">
-          <label className="cursor-pointer">
-            Choose File
-            <input
-              type="file"
-              accept=".pdf"
-              className="hidden"
-              onChange={handleFileUpload}
-              disabled={uploading}
-            />
-          </label>
-        </Button>
+    <div className="space-y-4 p-6 bg-white rounded-lg shadow-sm">
+      <div className="space-y-2">
+        <Textarea
+          placeholder="Ask a question about your EHR data..."
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          className="min-h-[100px] resize-none"
+        />
       </div>
-      
-      {uploading && (
-        <div className="space-y-2">
-          <Progress value={progress} className="w-full" />
-          <p className="text-sm text-gray-600 text-center">
-            Uploading file...
-          </p>
-        </div>
-      )}
+
+      <Button 
+        onClick={handleSubmit}
+        disabled={isLoading}
+        className="w-full"
+      >
+        {isLoading ? "Processing..." : "Ask Question"}
+      </Button>
     </div>
   );
 };
 
-export default FileUpload;
+export default QueryInput;
