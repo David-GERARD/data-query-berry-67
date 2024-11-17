@@ -33,7 +33,7 @@ const handleSubmit = async () => {
       body: JSON.stringify({ user_query: query.trim() }) // Match API payload
     });
 
-    if !response.ok throw new Error(`Error: ${response.status}`);
+    if (!response.ok) throw new Error(`Error: ${response.status}`);
 
       const data = await response.json();
       onSubmit(data);
