@@ -15,42 +15,34 @@ const FileUpload = () => {
   const { toast } = useToast();
 
   /**
-   * Handles the file upload process when a file is selected.
-   * @param event - The file input change event
-   */
-  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const files = event.target.files;
-    if (!files?.length) return;
+ * Handles the submission of a query to the backend API.
+ * Processes the response and updates the UI accordingly.
+ */
+const handleSubmit = async () => {
+  if (!query.trim()) return;
 
-    setUploading(true);
-    setFilesCount(files.length);
+  setIsLoading(true);
+  try {
+    const response = await fetch('http://127.0.0.1:8000/query', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ user_query: query.trim() }) // Match API payload
+    });
     
-    const formData = new FormData();
-    formData.append("file", files[0]);
-
-    try {
-      const response = await fetch("http://127.0.0.1:8000/upload", {
-        method: "POST",
-        body: formData,
-      });
-
-      if (!response.ok) throw new Error("Upload failed");
+    if (!response.ok) throw new Error('Query failed');
 
       const data = await response.json();
-      
-      toast({
-        title: "Success!",
-        description: `Successfully uploaded file`,
-      });
+      onSubmit(data);
     } catch (error) {
       toast({
         variant: "destructive",
         title: "Error",
-        description: "Failed to upload file. Please try again.",
+        description: "Failed to process query. Please try again.",
       });
     } finally {
-      setUploading(false);
-      setProgress(0);
+      setIsLoading(false);
     }
   };
 
