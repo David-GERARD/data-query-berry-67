@@ -33,20 +33,7 @@ const handleSubmit = async () => {
       body: JSON.stringify({ user_query: query.trim() }) // Match API payload
     });
 
-    if (!response.ok) {
-      throw new Error(`Error: ${response.status}`);
-    }
-
-    const data = await response.json();
-    console.log(data);
-    // Handle the response data as needed (e.g., update state or UI)
-  } catch (error) {
-    console.error('Error submitting query:', error);
-    // Handle error (e.g., show an error message)
-  } finally {
-    setIsLoading(false);
-  }
-};
+    if !response.ok throw new Error(`Error: ${response.status}`);
 
       const data = await response.json();
       onSubmit(data);
