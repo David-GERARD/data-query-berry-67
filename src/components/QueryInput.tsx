@@ -27,7 +27,7 @@ const QueryInput = ({ onSubmit }: QueryInputProps) => {
     try {
       const response = await fetch('http://127.0.0.1:8000/query', {
         method: 'POST',
-        body: JSON.stringify({ user_query: query.trim() }),
+        body: JSON.stringify({ user_query: query.trim() })
       });
 
       if (!response.ok) throw new Error('Query failed');
