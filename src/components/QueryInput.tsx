@@ -32,24 +32,37 @@ const QueryInput = ({ onSubmit }: QueryInputProps) => {
       if (!response.ok) throw new Error(`Error: ${response.status}`);
 
       const responseText = await response.text();
+      console.log('Raw response:', responseText); // Debug log
+
       let data;
       try {
+        // First, try to parse the response as JSON
         data = JSON.parse(responseText);
+        console.log('Parsed JSON data:', data); // Debug log
       } catch (e) {
-        console.error('Failed to parse JSON:', e);
-        data = { text: responseText, image: false };
+        // If parsing fails, treat the entire response as text
+        console.log('Failed to parse JSON, using raw text');
+        data = { text: responseText };
       }
-      
-      console.log('Parsed data:', data); // Debug log
-      
+
+      // If data.text is a string that looks like JSON, try to parse it again
+      if (typeof data.text === 'string' && data.text.startsWith('{')) {
+        try {
+          const parsedText = JSON.parse(data.text);
+          data.text = parsedText.text || parsedText.output || data.text;
+        } catch (e) {
+          console.log('Failed to parse nested JSON');
+        }
+      }
+
       onSubmit({
-        text: data.text || 'No response text available',
+        text: data.text || data.output || 'No response text available',
         image: data.image || false
       });
 
       setQuery(''); // Clear the input after successful submission
     } catch (error) {
-      console.error('Error:', error); // Debug log
+      console.error('Error:', error);
       toast({
         variant: "destructive",
         title: "Error",
