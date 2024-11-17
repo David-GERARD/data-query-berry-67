@@ -1,3 +1,7 @@
+/**
+ * Component for handling file uploads to the server.
+ * Supports PDF file uploads with progress tracking and status notifications.
+ */
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
@@ -10,6 +14,10 @@ const FileUpload = () => {
   const [filesCount, setFilesCount] = useState(0);
   const { toast } = useToast();
 
+  /**
+   * Handles the file upload process when a file is selected.
+   * @param event - The file input change event
+   */
   const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
     if (!files?.length) return;

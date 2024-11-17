@@ -1,3 +1,7 @@
+/**
+ * Component that displays a scrollable list of previous queries with their metadata.
+ * Allows users to select and rerun previous queries.
+ */
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 

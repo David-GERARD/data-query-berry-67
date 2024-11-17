@@ -1,3 +1,7 @@
+/**
+ * Component for handling user input queries and submitting them to the backend.
+ * Provides feedback through toast notifications for success and error states.
+ */
 import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -12,6 +16,10 @@ const QueryInput = ({ onSubmit }: QueryInputProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
 
+  /**
+   * Handles the submission of a query to the backend API.
+   * Processes the response and updates the UI accordingly.
+   */
   const handleSubmit = async () => {
     if (!query.trim()) return;
     

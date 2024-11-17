@@ -1,3 +1,7 @@
+/**
+ * Main page component that integrates file upload, query input, and results display.
+ * Manages the overall layout and state of the EHR data analysis dashboard.
+ */
 import { useState } from 'react';
 import QueryInput from '../components/QueryInput';
 import FileUpload from '../components/FileUpload';
@@ -11,6 +15,10 @@ interface QueryResult {
 const Index = () => {
   const [result, setResult] = useState<QueryResult | null>(null);
 
+  /**
+   * Handles the results from a query submission.
+   * @param data - The query result data containing text and/or visualization
+   */
   const handleQueryResult = (data: QueryResult) => {
     setResult(data);
   };

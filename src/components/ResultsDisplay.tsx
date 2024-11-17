@@ -1,3 +1,7 @@
+/**
+ * Component for displaying query results, including both text and visualizations.
+ * Handles different types of result data with appropriate formatting.
+ */
 import { Card } from "@/components/ui/card";
 
 interface ResultsDisplayProps {

@@ -1,3 +1,7 @@
+/**
+ * Component for rendering data visualizations using Recharts.
+ * Displays bar charts with customizable axes, labels, and tooltips.
+ */
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import { Card } from "@/components/ui/card";
 

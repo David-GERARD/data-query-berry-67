@@ -1,3 +1,7 @@
+/**
+ * A reusable loading spinner component that displays an animated circular loading indicator.
+ * Used to indicate loading states throughout the application.
+ */
 const LoadingSpinner = () => {
   return (
     <div className="flex items-center justify-center p-8">
