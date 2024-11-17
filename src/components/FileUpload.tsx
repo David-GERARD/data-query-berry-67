@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import { Progress } from "@/components/ui/progress";
 import { Upload } from "lucide-react";
+import { Card } from "@/components/ui/card";
 
 const FileUpload = () => {
   const [uploading, setUploading] = useState(false);
@@ -14,10 +15,6 @@ const FileUpload = () => {
   const [filesCount, setFilesCount] = useState(0);
   const { toast } = useToast();
 
-  /**
-   * Handles the file upload process when a file is selected.
-   * @param event - The file input change event
-   */
   const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
     if (!files?.length) return;
@@ -55,35 +52,41 @@ const FileUpload = () => {
   };
 
   return (
-    <div className="flex justify-center items-center w-full">
-      <div className="space-y-4 w-full max-w-md">
-        <div className="flex flex-col items-center p-6 border-2 border-dashed rounded-lg">
-          <Upload className="h-10 w-10 text-gray-400 mb-2" />
-          <p className="text-sm text-gray-600 mb-4">Upload your EHR file (PDF format)</p>
-          <Button asChild variant="secondary">
-            <label className="cursor-pointer">
-              Choose File
-              <input
-                type="file"
-                accept=".pdf"
-                className="hidden"
-                onChange={handleFileUpload}
-                disabled={uploading}
-              />
-            </label>
-          </Button>
-        </div>
-        
-        {uploading && (
-          <div className="space-y-2">
-            <Progress value={progress} className="w-full" />
-            <p className="text-sm text-gray-600 text-center">
-              Uploading file...
-            </p>
+    <Card className="bg-white/80 backdrop-blur-sm shadow-lg">
+      <div className="flex justify-center items-center w-full">
+        <div className="space-y-4 w-full max-w-md p-8">
+          <div className="flex flex-col items-center p-8 border-2 border-dashed border-medical-blue/30 rounded-lg bg-medical-light/50 hover:bg-medical-light/70 transition-colors">
+            <Upload className="h-12 w-12 text-medical-blue mb-4" />
+            <p className="text-sm text-gray-600 mb-6 text-center">Upload your EHR file (PDF format)</p>
+            <Button 
+              variant="outline" 
+              className="bg-white hover:bg-medical-light border-medical-blue/20 text-medical-blue hover:text-medical-dark transition-colors"
+              asChild
+            >
+              <label className="cursor-pointer">
+                Choose File
+                <input
+                  type="file"
+                  accept=".pdf"
+                  className="hidden"
+                  onChange={handleFileUpload}
+                  disabled={uploading}
+                />
+              </label>
+            </Button>
           </div>
-        )}
+          
+          {uploading && (
+            <div className="space-y-2">
+              <Progress value={progress} className="w-full" />
+              <p className="text-sm text-gray-600 text-center">
+                Uploading file...
+              </p>
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+    </Card>
   );
 };
 

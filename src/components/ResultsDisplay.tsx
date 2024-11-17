@@ -13,12 +13,20 @@ const ResultsDisplay = ({ text, image }: ResultsDisplayProps) => {
   if (!text && !image) return null;
 
   return (
-    <Card className="p-6 animate-fade-in">
+    <div className="animate-fade-in">
       <div className="prose max-w-none">
-        {text && <p className="text-gray-700 whitespace-pre-wrap">{text}</p>}
-        {image && <p className="text-gray-500">Image visualization available</p>}
+        {text && (
+          <p className="text-gray-700 whitespace-pre-wrap leading-relaxed">
+            {text}
+          </p>
+        )}
+        {image && (
+          <p className="text-medical-blue italic mt-4">
+            Image visualization available
+          </p>
+        )}
       </div>
-    </Card>
+    </div>
   );
 };
 

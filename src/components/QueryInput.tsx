@@ -6,6 +6,8 @@ import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
+import { Card } from "@/components/ui/card";
+import { SendHorizontal } from "lucide-react";
 
 interface QueryInputProps {
   onSubmit: (data: { text?: string; image?: boolean }) => void;
@@ -74,24 +76,34 @@ const QueryInput = ({ onSubmit }: QueryInputProps) => {
   };
 
   return (
-    <div className="space-y-4 p-6 bg-white rounded-lg shadow-sm">
-      <div className="space-y-2">
-        <Textarea
-          placeholder="Ask a question about your EHR data..."
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          className="min-h-[100px] resize-none"
-        />
-      </div>
+    <Card className="bg-white/80 backdrop-blur-sm shadow-lg">
+      <div className="space-y-4 p-8">
+        <div className="space-y-4">
+          <h2 className="text-xl font-semibold text-gray-800 mb-2">Ask a Question</h2>
+          <Textarea
+            placeholder="What would you like to know about your EHR data?"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            className="min-h-[120px] resize-none border-medical-blue/20 focus:border-medical-blue/40 bg-white/90"
+          />
+        </div>
 
-      <Button 
-        onClick={handleSubmit}
-        disabled={isLoading}
-        className="w-full"
-      >
-        {isLoading ? "Processing..." : "Ask Question"}
-      </Button>
-    </div>
+        <Button 
+          onClick={handleSubmit}
+          disabled={isLoading}
+          className="w-full bg-gradient-to-r from-medical-blue to-medical-accent hover:opacity-90 transition-opacity"
+        >
+          {isLoading ? (
+            "Processing..."
+          ) : (
+            <>
+              Ask Question
+              <SendHorizontal className="ml-2 h-4 w-4" />
+            </>
+          )}
+        </Button>
+      </div>
+    </Card>
   );
 };
 
