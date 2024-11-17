@@ -55,32 +55,34 @@ const FileUpload = () => {
   };
 
   return (
-    <div className="space-y-4 w-full max-w-md">
-      <div className="flex flex-col items-center p-6 border-2 border-dashed rounded-lg">
-        <Upload className="h-10 w-10 text-gray-400 mb-2" />
-        <p className="text-sm text-gray-600 mb-4">Upload your EHR file (PDF format)</p>
-        <Button asChild variant="secondary">
-          <label className="cursor-pointer">
-            Choose File
-            <input
-              type="file"
-              accept=".pdf"
-              className="hidden"
-              onChange={handleFileUpload}
-              disabled={uploading}
-            />
-          </label>
-        </Button>
-      </div>
-      
-      {uploading && (
-        <div className="space-y-2">
-          <Progress value={progress} className="w-full" />
-          <p className="text-sm text-gray-600 text-center">
-            Uploading file...
-          </p>
+    <div className="flex justify-center items-center w-full">
+      <div className="space-y-4 w-full max-w-md">
+        <div className="flex flex-col items-center p-6 border-2 border-dashed rounded-lg">
+          <Upload className="h-10 w-10 text-gray-400 mb-2" />
+          <p className="text-sm text-gray-600 mb-4">Upload your EHR file (PDF format)</p>
+          <Button asChild variant="secondary">
+            <label className="cursor-pointer">
+              Choose File
+              <input
+                type="file"
+                accept=".pdf"
+                className="hidden"
+                onChange={handleFileUpload}
+                disabled={uploading}
+              />
+            </label>
+          </Button>
         </div>
-      )}
+        
+        {uploading && (
+          <div className="space-y-2">
+            <Progress value={progress} className="w-full" />
+            <p className="text-sm text-gray-600 text-center">
+              Uploading file...
+            </p>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
