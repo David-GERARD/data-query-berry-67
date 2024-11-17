@@ -8,7 +8,6 @@ interface ResultsDisplayProps {
   text?: string;
   image?: boolean;
 }
-import plotImage from "../../../EF_Hackathon/src/data/plot.png";
 
 const ResultsDisplay = ({ text, image }: ResultsDisplayProps) => {
   if (!text && !image) return null;
@@ -26,7 +25,7 @@ const ResultsDisplay = ({ text, image }: ResultsDisplayProps) => {
         {out_text.image && (
           <div className="mt-8 rounded-xl overflow-hidden shadow-lg">
             <img 
-              src={plotImage} 
+              src="/plot-placeholder.png"
               alt="visualization" 
               className="w-full h-auto transform hover:scale-[1.02] transition-transform duration-300"
             />
