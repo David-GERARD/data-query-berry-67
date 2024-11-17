@@ -8,22 +8,23 @@ interface ResultsDisplayProps {
   text?: string;
   image?: boolean;
 }
+import plotImage from "../../../EF_Hackathon/src/data/plot.png";
 
 const ResultsDisplay = ({ text, image }: ResultsDisplayProps) => {
   if (!text && !image) return null;
-
+  console.log(text);
+  console.log(text.replace(/'/g, ''));
+  const out_text = JSON.parse(text.replace(/'/g, ''));
   return (
     <div className="animate-fade-in">
       <div className="prose max-w-none">
         {text && (
           <p className="text-gray-700 whitespace-pre-wrap leading-relaxed">
-            {text}
+            {out_text.text}
           </p>
         )}
-        {image && (
-          <p className="text-medical-blue italic mt-4">
-            Image visualization available
-          </p>
+        {out_text.image && (
+          <img src={plotImage} alt="visualization" className="w-full h-auto" />
         )}
       </div>
     </div>
