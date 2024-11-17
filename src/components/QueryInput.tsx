@@ -76,29 +76,29 @@ const QueryInput = ({ onSubmit }: QueryInputProps) => {
   };
 
   return (
-    <Card className="bg-white/80 backdrop-blur-sm shadow-lg">
-      <div className="space-y-4 p-8">
+    <Card className="bg-white/90 backdrop-blur-xl shadow-xl rounded-2xl border-0">
+      <div className="space-y-6 p-10">
         <div className="space-y-4">
-          <h2 className="text-xl font-semibold text-gray-800 mb-2">Ask a Question</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-4">Ask a Question</h2>
           <Textarea
             placeholder="What would you like to know about your EHR data?"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="min-h-[120px] resize-none border-medical-blue/20 focus:border-medical-blue/40 bg-white/90"
+            className="min-h-[140px] resize-none border-medical-blue/10 focus:border-medical-blue/30 bg-white/80 rounded-xl text-base placeholder:text-gray-400 transition-all duration-300 focus:shadow-inner"
           />
         </div>
 
         <Button 
           onClick={handleSubmit}
           disabled={isLoading}
-          className="w-full bg-gradient-to-r from-medical-blue to-medical-accent hover:opacity-90 transition-opacity"
+          className="w-full bg-gradient-to-r from-medical-blue via-medical-accent to-indigo-600 hover:opacity-90 transition-all duration-300 shadow-md hover:shadow-lg text-base py-6 rounded-xl"
         >
           {isLoading ? (
             "Processing..."
           ) : (
             <>
               Ask Question
-              <SendHorizontal className="ml-2 h-4 w-4" />
+              <SendHorizontal className="ml-2 h-5 w-5" />
             </>
           )}
         </Button>

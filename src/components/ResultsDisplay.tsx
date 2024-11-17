@@ -12,19 +12,25 @@ import plotImage from "../../../EF_Hackathon/src/data/plot.png";
 
 const ResultsDisplay = ({ text, image }: ResultsDisplayProps) => {
   if (!text && !image) return null;
-  console.log(text);
-  console.log(text.replace(/'/g, ''));
-  const out_text = JSON.parse(text.replace(/'/g, ''));
+  
+  const out_text = JSON.parse(text!.replace(/'/g, ''));
+  
   return (
-    <div className="animate-fade-in">
+    <div className="animate-fade-in space-y-6">
       <div className="prose max-w-none">
         {text && (
-          <p className="text-gray-700 whitespace-pre-wrap leading-relaxed">
+          <p className="text-gray-700 whitespace-pre-wrap leading-relaxed font-light text-lg">
             {out_text.text}
           </p>
         )}
         {out_text.image && (
-          <img src={plotImage} alt="visualization" className="w-full h-auto" />
+          <div className="mt-8 rounded-xl overflow-hidden shadow-lg">
+            <img 
+              src={plotImage} 
+              alt="visualization" 
+              className="w-full h-auto transform hover:scale-[1.02] transition-transform duration-300"
+            />
+          </div>
         )}
       </div>
     </div>

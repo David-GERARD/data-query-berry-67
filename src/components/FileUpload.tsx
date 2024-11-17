@@ -52,15 +52,17 @@ const FileUpload = () => {
   };
 
   return (
-    <Card className="bg-white/80 backdrop-blur-sm shadow-lg">
+    <Card className="bg-white/90 backdrop-blur-xl shadow-xl rounded-2xl border-0">
       <div className="flex justify-center items-center w-full">
-        <div className="space-y-4 w-full max-w-md p-8">
-          <div className="flex flex-col items-center p-8 border-2 border-dashed border-medical-blue/30 rounded-lg bg-medical-light/50 hover:bg-medical-light/70 transition-colors">
-            <Upload className="h-12 w-12 text-medical-blue mb-4" />
-            <p className="text-sm text-gray-600 mb-6 text-center">Upload your EHR file (PDF format)</p>
+        <div className="space-y-6 w-full max-w-md p-10">
+          <div className="flex flex-col items-center p-10 border-2 border-dashed border-medical-blue/20 rounded-xl bg-gradient-to-b from-medical-light/30 to-white/50 hover:from-medical-light/40 hover:to-white/60 transition-all duration-300">
+            <Upload className="h-14 w-14 text-medical-blue/80 mb-6 animate-fade-in" />
+            <p className="text-base text-gray-600 mb-8 text-center font-light">
+              Upload your EHR file (PDF format)
+            </p>
             <Button 
               variant="outline" 
-              className="bg-white hover:bg-medical-light border-medical-blue/20 text-medical-blue hover:text-medical-dark transition-colors"
+              className="bg-white/80 hover:bg-medical-light border-medical-blue/10 text-medical-blue hover:text-medical-dark transition-all duration-300 shadow-sm hover:shadow-md"
               asChild
             >
               <label className="cursor-pointer">
@@ -77,9 +79,9 @@ const FileUpload = () => {
           </div>
           
           {uploading && (
-            <div className="space-y-2">
-              <Progress value={progress} className="w-full" />
-              <p className="text-sm text-gray-600 text-center">
+            <div className="space-y-3 animate-fade-in">
+              <Progress value={progress} className="h-2 bg-medical-light/30" />
+              <p className="text-sm text-gray-600 text-center font-light">
                 Uploading file...
               </p>
             </div>
