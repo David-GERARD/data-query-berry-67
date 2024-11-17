@@ -28,9 +28,10 @@ const handleSubmit = async () => {
     const response = await fetch('http://127.0.0.1:8000/query', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'text/plain',
       },
-      body: JSON.stringify({ user_query: query.trim() }) // Match API payload
+      //body: JSON.stringify({ user_query: query.trim() }) // Match API payload
+      body: query.trim() // Match API payload
     });
 
     if (!response.ok) throw new Error(`Error: ${response.status}`);
