@@ -25,15 +25,12 @@ const QueryInput = ({ onSubmit }: QueryInputProps) => {
     
     setIsLoading(true);
     try {
-      const response = await fetch('https://ef-hackathon.onrender.com/query', {
+      const response = await fetch('http://127.0.0.1:8000/query', {
         method: 'POST',
-        mode: 'cors',
-        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
-          'Accept': 'application/json',
         },
-        body: JSON.stringify({ query: query.trim() }),
+        body: JSON.stringify({ user_query: query.trim() }),
       });
 
       if (!response.ok) throw new Error('Query failed');
