@@ -6,6 +6,7 @@ import { useState } from 'react';
 import QueryInput from '../components/QueryInput';
 import FileUpload from '../components/FileUpload';
 import ResultsDisplay from '../components/ResultsDisplay';
+import { Card } from "@/components/ui/card";
 
 interface QueryResult {
   text?: string;
@@ -30,17 +31,24 @@ const Index = () => {
           EHR Data Analysis Dashboard
         </h1>
         
-        <div className="grid gap-8 md:grid-cols-[1fr_auto]">
-          <div className="space-y-6">
-            <FileUpload />
-            <QueryInput onSubmit={handleQueryResult} />
-            {result && (
+        <div className="space-y-8">
+          <FileUpload />
+          
+          <Card className="p-6">
+            <h2 className="text-xl font-semibold mb-4">Query Results</h2>
+            {result ? (
               <ResultsDisplay
                 text={result.text}
                 visualization={result.visualization}
               />
+            ) : (
+              <p className="text-gray-500 text-center py-8">
+                No queries have been made yet. Use the form below to ask questions about your EHR data.
+              </p>
             )}
-          </div>
+          </Card>
+
+          <QueryInput onSubmit={handleQueryResult} />
         </div>
       </div>
     </div>
