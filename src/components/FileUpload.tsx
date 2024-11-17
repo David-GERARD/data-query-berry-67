@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import { Progress } from "@/components/ui/progress";
-import { Upload, FileWarning } from "lucide-react";
+import { Upload } from "lucide-react";
 
 const FileUpload = () => {
   const [uploading, setUploading] = useState(false);
@@ -18,22 +18,18 @@ const FileUpload = () => {
     setFilesCount(files.length);
     
     const formData = new FormData();
-    // Changed from 'files' to 'file' to match backend expectation
     formData.append("file", files[0]);
 
     try {
-      const response = await fetch("https://ef-hackathon.onrender.com/upload", {
+      const response = await fetch("http://127.0.0.1:8000/upload", {
         method: "POST",
         body: formData,
-        mode: 'cors',
-        credentials: 'include',
-        headers: {
-          'Accept': 'application/json',
-        }
       });
 
       if (!response.ok) throw new Error("Upload failed");
 
+      const data = await response.json();
+      
       toast({
         title: "Success!",
         description: `Successfully uploaded file`,
