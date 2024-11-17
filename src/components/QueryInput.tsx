@@ -31,13 +31,20 @@ const QueryInput = ({ onSubmit }: QueryInputProps) => {
 
       if (!response.ok) throw new Error(`Error: ${response.status}`);
 
-      const data = await response.json();
-      console.log('Received data:', data); // Debug log
+      const responseText = await response.text();
+      let data;
+      try {
+        data = JSON.parse(responseText);
+      } catch (e) {
+        console.error('Failed to parse JSON:', e);
+        data = { text: responseText, image: false };
+      }
       
-      // Pass the response directly to the parent component
+      console.log('Parsed data:', data); // Debug log
+      
       onSubmit({
-        text: data.output || 'Response received from server',
-        image: false
+        text: data.text || 'No response text available',
+        image: data.image || false
       });
 
       setQuery(''); // Clear the input after successful submission
