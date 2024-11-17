@@ -11,11 +11,6 @@ interface QueryInputProps {
   onSubmit: (data: { text?: string; image?: boolean }) => void;
 }
 
-interface ApiResponse {
-  text: string;
-  image: boolean;
-}
-
 const QueryInput = ({ onSubmit }: QueryInputProps) => {
   const [query, setQuery] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -39,12 +34,10 @@ const QueryInput = ({ onSubmit }: QueryInputProps) => {
       const data = await response.json();
       console.log('Received data:', data); // Debug log
       
-      // Parse the output string as JSON to get the structured response
-      const parsedOutput: ApiResponse = JSON.parse(data.output);
-      
+      // Pass the response directly to the parent component
       onSubmit({
-        text: parsedOutput.text,
-        image: parsedOutput.image
+        text: data.output || 'Response received from server',
+        image: false
       });
 
       setQuery(''); // Clear the input after successful submission
