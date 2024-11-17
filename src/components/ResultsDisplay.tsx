@@ -10,25 +10,13 @@ interface ResultsDisplayProps {
 }
 
 const ResultsDisplay = ({ text, image }: ResultsDisplayProps) => {
-  if (!text && !image) return null;
+  if (!text) return null;
 
   return (
     <Card className="p-6 animate-fade-in">
-      {text && (
-        <div className="prose max-w-none mb-6">
-          <p className="text-gray-700">{text}</p>
-        </div>
-      )}
-      
-      {image && (
-        <div className="mt-4">
-          <img 
-            src="http://localhost:8000/plot"
-            alt="Data visualization"
-            className="max-w-full h-auto"
-          />
-        </div>
-      )}
+      <div className="prose max-w-none mb-6">
+        <p className="text-gray-700">{text}</p>
+      </div>
     </Card>
   );
 };
