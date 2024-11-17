@@ -17,23 +17,36 @@ const QueryInput = ({ onSubmit }: QueryInputProps) => {
   const { toast } = useToast();
 
   /**
-   * Handles the submission of a query to the backend API.
-   * Processes the response and updates the UI accordingly.
-   */
-  const handleSubmit = async () => {
-    if (!query.trim()) return;
-    
-    setIsLoading(true);
-    try {
-      const response = await fetch('http://127.0.0.1:8000/query', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(query.trim())
-      });
+ * Handles the submission of a query to the backend API.
+ * Processes the response and updates the UI accordingly.
+ */
+const handleSubmit = async () => {
+  if (!query.trim()) return;
 
-      if (!response.ok) throw new Error('Query failed');
+  setIsLoading(true);
+  try {
+    const response = await fetch('http://127.0.0.1:8000/query', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ user_query: query.trim() }) // Match API payload
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status}`);
+    }
+
+    const data = await response.json();
+    console.log(data);
+    // Handle the response data as needed (e.g., update state or UI)
+  } catch (error) {
+    console.error('Error submitting query:', error);
+    // Handle error (e.g., show an error message)
+  } finally {
+    setIsLoading(false);
+  }
+};
 
       const data = await response.json();
       onSubmit(data);
