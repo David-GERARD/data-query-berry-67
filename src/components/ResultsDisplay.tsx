@@ -3,7 +3,6 @@
  * Handles different types of result data with appropriate formatting.
  */
 import { Card } from "@/components/ui/card";
-import plotImage from "../data/plot.png";
 
 interface ResultsDisplayProps {
   text?: string;
@@ -24,7 +23,7 @@ const ResultsDisplay = ({ text, image }: ResultsDisplayProps) => {
       {image && (
         <div className="mt-4">
           <img 
-            src={plotImage}
+            src="http://localhost:8000/plot"
             alt="Data visualization"
             className="max-w-full h-auto"
           />
