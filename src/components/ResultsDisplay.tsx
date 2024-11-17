@@ -14,8 +14,8 @@ const ResultsDisplay = ({ text, image }: ResultsDisplayProps) => {
 
   return (
     <Card className="p-6 animate-fade-in">
-      <div className="prose max-w-none mb-6">
-        <p className="text-gray-700">{text}</p>
+      <div className="prose max-w-none">
+        <p className="text-gray-700 whitespace-pre-wrap">{text}</p>
       </div>
     </Card>
   );

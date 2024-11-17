@@ -11,6 +11,11 @@ interface QueryInputProps {
   onSubmit: (data: { text?: string; image?: boolean }) => void;
 }
 
+interface ApiResponse {
+  input: string;
+  output: string;
+}
+
 const QueryInput = ({ onSubmit }: QueryInputProps) => {
   const [query, setQuery] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -31,8 +36,10 @@ const QueryInput = ({ onSubmit }: QueryInputProps) => {
 
       if (!response.ok) throw new Error(`Error: ${response.status}`);
 
-      const responseData = await response.json();
-      onSubmit(responseData.data);
+      const apiResponse: ApiResponse = await response.json();
+      // Parse the output string which contains the JSON response
+      const outputData = JSON.parse(apiResponse.output);
+      onSubmit(outputData);
     } catch (error) {
       toast({
         variant: "destructive",
